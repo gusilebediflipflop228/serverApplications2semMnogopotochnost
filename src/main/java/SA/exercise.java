@@ -1,5 +1,8 @@
 package SA;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class exercise {
     public static void task1() {
         Thread currentThread = Thread.currentThread();
@@ -62,5 +65,48 @@ public class exercise {
             e.printStackTrace();
         }
         System.out.println("Все дочерние потоки завершены. Главный поток продолжил работу и завершается");
+    }
+
+    public static void task4(){
+        List<Integer> list = new ArrayList<>();
+
+        AddingThread addingThread = new AddingThread(list);
+        RemovingThread removingThread = new RemovingThread(list);
+
+        Thread thread1 = new Thread(addingThread);
+        Thread thread2 = new Thread(removingThread);
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Размер списка в конце: " + list.size());
+    }
+
+    public static void task5(){
+        ChangedList changedList = new ChangedList();
+
+        ChangedThreads thread1 = new ChangedThreads(changedList, true);
+        ChangedThreads thread2 = new ChangedThreads(changedList, false);
+
+        Thread t1 = new Thread(thread1);
+        Thread t2 = new Thread(thread2);
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Размер списка: " + changedList.getSize());
     }
 }
