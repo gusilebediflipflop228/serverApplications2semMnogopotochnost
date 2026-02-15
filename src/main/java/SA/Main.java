@@ -6,6 +6,7 @@ public class Main {
     //exercise.task2();
     //exercise.task3();
     //exercise.task4();
-    exercise.task5();
+    //exercise.task5();
+    exercise.task6();
     }
 }

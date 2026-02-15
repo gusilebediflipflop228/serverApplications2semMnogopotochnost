@@ -109,4 +109,25 @@ public class exercise {
         }
         System.out.println("Размер списка: " + changedList.getSize());
     }
+
+    public static void task6() {
+        SynchronizedChangedList synchronizedChangedList = new SynchronizedChangedList();
+
+        SynchronizedChangedThreads thread1 = new SynchronizedChangedThreads(synchronizedChangedList, true);
+        SynchronizedChangedThreads thread2 = new SynchronizedChangedThreads(synchronizedChangedList, false);
+
+        Thread t1 = new Thread(thread1);
+        Thread t2 = new Thread(thread2);
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Размер списка: " + synchronizedChangedList.getSize());
+    }
 }
