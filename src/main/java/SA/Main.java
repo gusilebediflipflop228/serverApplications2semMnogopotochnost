@@ -7,6 +7,9 @@ public class Main {
     //exercise.task3();
     //exercise.task4();
     //exercise.task5();
-    exercise.task6();
+    //exercise.task6();
+    //exercise.task7();
+    //exercise.task8();
+    exercise.task9();
     }
 }

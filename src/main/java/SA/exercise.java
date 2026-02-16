@@ -15,7 +15,6 @@ public class exercise {
         System.out.println("Жив или нет: " + currentThread.isAlive());
         System.out.println("Группа потока: " + currentThread.getThreadGroup());
     }
-
     public static void task2() {
         System.out.println("Главный поток начал работу: " + Thread.currentThread().getName());
 
@@ -39,7 +38,6 @@ public class exercise {
         }
         System.out.println("Главный поток продолжил работу и завершается");
     }
-
     public static void task3() {
         MyRunnable1 run1 = new MyRunnable1();
         MyRunnable2 run2 = new MyRunnable2();
@@ -66,7 +64,6 @@ public class exercise {
         }
         System.out.println("Все дочерние потоки завершены. Главный поток продолжил работу и завершается");
     }
-
     public static void task4(){
         List<Integer> list = new ArrayList<>();
 
@@ -88,7 +85,6 @@ public class exercise {
 
         System.out.println("Размер списка в конце: " + list.size());
     }
-
     public static void task5(){
         ChangedList changedList = new ChangedList();
 
@@ -109,7 +105,6 @@ public class exercise {
         }
         System.out.println("Размер списка: " + changedList.getSize());
     }
-
     public static void task6() {
         SynchronizedChangedList synchronizedChangedList = new SynchronizedChangedList();
 
@@ -129,5 +124,44 @@ public class exercise {
             e.printStackTrace();
         }
         System.out.println("Размер списка: " + synchronizedChangedList.getSize());
+    }
+
+    public  static void task7() {
+    new Thread(new PingPong(false)).start();
+    new Thread(new PingPong(true)).start();
+    }
+    public static void task8() {
+        LockListManager lockListManager = new LockListManager();
+
+        LockListManagerThreads thread1 = new LockListManagerThreads(lockListManager, true);
+        LockListManagerThreads thread2 = new LockListManagerThreads(lockListManager, false);
+
+        Thread t1 = new Thread(thread1);
+        Thread t2 = new Thread(thread2);
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {}
+        System.out.println("Размер списка: " + lockListManager.getSize());
+    }
+    public static void task9() {
+        PingPongLock pingPongLock = new PingPongLock();
+
+        Thread pingThread = new Thread(() -> {
+            while (true) pingPongLock.ping();
+        });
+
+        Thread pongThread = new Thread(() -> {
+            while (true) {
+                pingPongLock.pong();
+            }
+        });
+
+        pingThread.start();
+        pongThread.start();
     }
 }
