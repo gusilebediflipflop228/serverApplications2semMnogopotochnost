@@ -1,4 +1,4 @@
-package SA;
+package SA.exercise8;
 
 public class LockListManagerThreads implements Runnable {
     private LockListManager lm;

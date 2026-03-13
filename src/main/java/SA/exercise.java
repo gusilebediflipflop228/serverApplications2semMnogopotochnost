@@ -1,11 +1,30 @@
 package SA;
 
+import SA.exercise12.EmailSender;
+import SA.exercise12.Message;
+import SA.exercise12.Transport;
+import SA.exercise13.WriterReader;
+import SA.exercise3.MyRunnable1;
+import SA.exercise3.MyRunnable2;
+import SA.exercise3.MyRunnable3;
+import SA.exercise4.AddingThread;
+import SA.exercise4.RemovingThread;
+import SA.exercise5.ChangedList;
+import SA.exercise5.ChangedThreads;
+import SA.exercise6.SynchronizedChangedList;
+import SA.exercise6.SynchronizedChangedThreads;
+import SA.exercise8.LockListManager;
+import SA.exercise8.LockListManagerThreads;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class exercise {
     public static void task1() {
         Thread currentThread = Thread.currentThread();
+
+
 
         System.out.println("Имя потока: " + currentThread.getName());
         System.out.println("Id потока: " + currentThread.getId());
@@ -163,5 +182,72 @@ public class exercise {
 
         pingThread.start();
         pongThread.start();
+    }
+    public static void task10() {
+        try {
+            SimpleConcurrentMap.runBenchmark();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void task11() throws InterruptedException {
+        Formatter formatter = new Formatter();
+
+        Thread[] threads = new Thread[5];
+        for (int i = 0; i < 5; i++) {
+            final int threadNum = i;
+            threads[i] = new Thread(() -> {
+                for (int j = 0; j < 5; j++) {
+                    String formatted = formatter.format(new Date());
+                    System.out.println("Поток " + threadNum + ": " + formatted);
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+
+        for (Thread thread : threads) {
+            thread.start();
+        }
+
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
+        System.out.println("\nВсе потоки завершены успешно");
+    }
+    public static void task12() throws InterruptedException{
+        Transport transport = new Transport();
+        EmailSender sender = new EmailSender(transport, 5);
+        Message template = new Message(
+                "",
+                "noreply@example.com",
+                "Важное уведомление",
+                "Уважаемый клиент, это массовая рассылка."
+        );
+
+        long start = System.currentTimeMillis();
+        sender.sendBulk("emails.txt", template);
+
+        // ждём завершения всех задач в пуле
+        while (!sender.getExecutor().isTerminated()) {
+            Thread.sleep(100);
+        }
+
+        long end = System.currentTimeMillis();
+
+        System.out.println("\nРассылка завершена");
+        System.out.println("Время выполнения: " + (end - start) + " мс");
+    }
+    public static void task13() {
+        try {
+            WriterReader.run(3, 2, 20, 10);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

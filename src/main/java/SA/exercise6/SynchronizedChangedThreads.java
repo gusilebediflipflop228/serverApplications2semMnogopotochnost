@@ -1,4 +1,4 @@
-package SA;
+package SA.exercise6;
 
 public class SynchronizedChangedThreads implements Runnable {
     private SynchronizedChangedList list;

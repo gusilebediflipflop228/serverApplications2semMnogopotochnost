@@ -1,4 +1,4 @@
-package SA;
+package SA.exercise5;
 
 import java.util.ArrayList;
 import java.util.List;

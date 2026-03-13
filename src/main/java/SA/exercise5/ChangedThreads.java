@@ -1,4 +1,4 @@
-package SA;
+package SA.exercise5;
 
 public class ChangedThreads implements Runnable {
     private ChangedList list;

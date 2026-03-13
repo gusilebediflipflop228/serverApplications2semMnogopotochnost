@@ -1,4 +1,4 @@
-package SA;
+package SA.exercise6;
 
 import java.util.ArrayList;
 import java.util.Collections;

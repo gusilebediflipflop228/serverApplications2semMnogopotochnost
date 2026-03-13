@@ -1,12 +1,12 @@
-package SA;
+package SA.exercise3;
 
-public class MyRunnable3 implements Runnable {
+public class MyRunnable1 implements Runnable {
     @Override
-    public void run() {
+    public void run(){
         for (int i = 0; i < 5; i++) {
             System.out.println("Поток " + Thread.currentThread().getName() + " выполняет итерацию " + i);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
