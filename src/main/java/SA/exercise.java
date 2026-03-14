@@ -4,6 +4,7 @@ import SA.exercise12.EmailSender;
 import SA.exercise12.Message;
 import SA.exercise12.Transport;
 import SA.exercise13.WriterReader;
+import SA.exercise14.TaskQueueApp;
 import SA.exercise3.MyRunnable1;
 import SA.exercise3.MyRunnable2;
 import SA.exercise3.MyRunnable3;
@@ -250,4 +251,32 @@ public class exercise {
             e.printStackTrace();
         }
     }
+
+    public static void task14(boolean autoConfig, String[] args) {
+        try {
+            int developers = 3;
+            int executors = 5;
+            int tasks = 10;
+            int queueSize = 10;
+
+            if (!autoConfig && args != null) {
+                for (int i = 0; i < args.length; i++) {
+                    switch (args[i]) {
+                        case "-d": developers = Integer.parseInt(args[++i]); break;
+                        case "-e": executors = Integer.parseInt(args[++i]); break;
+                        case "-t": tasks = Integer.parseInt(args[++i]); break;
+                        case "-q": queueSize = Integer.parseInt(args[++i]); break;
+                        case "-a": autoConfig = true; break;
+                    }
+                }
+            }
+
+            TaskQueueApp app = new TaskQueueApp();
+            app.run(developers, executors, tasks, queueSize, autoConfig);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

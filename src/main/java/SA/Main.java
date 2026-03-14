@@ -23,5 +23,6 @@ public class Main {
     //exercise.task11();
     //exercise.task12();
     //exercise.task13();
+    exercise.task14(false, new String[]{"-d", "5", "-e", "10", "-t", "20", "-q", "15"});
     }
 }
