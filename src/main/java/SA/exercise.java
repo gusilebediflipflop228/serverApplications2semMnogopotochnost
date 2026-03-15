@@ -147,8 +147,12 @@ public class exercise {
     }
 
     public  static void task7() {
-    new Thread(new PingPong(false)).start();
-    new Thread(new PingPong(true)).start();
+        final Object lock = new Object();
+        Thread pingThread = new Thread(new PingPong(true, lock));
+        Thread pongThread = new Thread(new PingPong(false, lock));
+
+        pingThread.start();
+        pongThread.start();
     }
     public static void task8() {
         LockListManager lockListManager = new LockListManager();
@@ -251,7 +255,6 @@ public class exercise {
             e.printStackTrace();
         }
     }
-
     public static void task14(boolean autoConfig, String[] args) {
         try {
             int developers = 3;
